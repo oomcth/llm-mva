@@ -161,12 +161,10 @@ def randomize_module(model, layer_path):
 
     module = get_module(model, layer_path)
 
-    # Sauvegarder les poids actuels
     original_weights = {}
     for name, param in module.named_parameters():
         original_weights[name] = param.data.clone()
 
-    # Randomiser les poids (en préservant les écarts-types originaux)
     with torch.no_grad():
         for name, param in module.named_parameters():
             std = param.data.std()
@@ -274,5 +272,5 @@ def plot_results(results):
 
 
 if __name__ == "__main__":
-    results = run_layer_ablation_study(use_randomization=False)  # Utiliser la réinitialisation pré-entraînée
+    results = run_layer_ablation_study(use_randomization=False)
     plot_results(results)
