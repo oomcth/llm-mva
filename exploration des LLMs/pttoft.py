@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 def create_hybrid_model(model_pt, model_ft, n_layers_pt, num_layers):
     with torch.no_grad():
-        hybrid_model = AutoModelForCausalLM.from_pretrained(model_pt_name)  # Base saine
+        hybrid_model = AutoModelForCausalLM.from_pretrained(model_pt_name)
         hybrid_model.to(device)
 
         for i in range(n_layers_pt):
@@ -134,9 +134,9 @@ num_layers = len(model_pt.model.layers)
 probabilities_ft = analyze_probabilities(model_ft, tokenizer, prompt)
 top_k_values, top_k_indices = torch.topk(probabilities_ft, top_k)
 
-probabilities_all_layers = [probabilities_ft]  # Liste pour stocker les probabilités de chaque configuration
+probabilities_all_layers = [probabilities_ft]
 
-for n_layers_pt in tqdm(range(1, num_layers + 1), desc="Processing Layers"):  # +1 pour inclure le modèle PT complet
+for n_layers_pt in tqdm(range(1, num_layers + 1), desc="Processing Layers"):
     hybrid_model = create_hybrid_model(model_pt, model_ft, n_layers_pt, num_layers)
     probabilities = analyze_probabilities(hybrid_model, tokenizer, prompt)
     probabilities_all_layers.append(probabilities)
