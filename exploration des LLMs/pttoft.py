@@ -125,7 +125,7 @@ os.makedirs(output_dir, exist_ok=True)
 tokenizer = AutoTokenizer.from_pretrained(model_pt_name)
 model_pt = AutoModelForCausalLM.from_pretrained(model_pt_name)
 model_ft = AutoModelForCausalLM.from_pretrained(model_ft_name)
-device = "mps"  # ou "cuda" si vous avez un GPU, ou "cpu"
+device = "mps"
 model_pt.to(device)
 model_ft.to(device)
 
