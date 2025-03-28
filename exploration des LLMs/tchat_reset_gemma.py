@@ -4,14 +4,12 @@ import json
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
-# Configurations
 MODEL_NAME = "google/gemma-3-1b-it"
-PRETRAINED_MODEL_NAME = "google/gemma-3-1b-pt"  # Version pré-entraînée correspondante
-DEVICE = "mps"  # Pour Mac avec accélération MPS
+PRETRAINED_MODEL_NAME = "google/gemma-3-1b-pt"
+DEVICE = "mps"
 OUTPUT_FILE = "layer_ablation_results_gemma.json"
 
 
-# Chargement du modèle et du tokenizer
 def load_model_and_tokenizer(model_name):
     print(f"Chargement du modèle '{model_name}' et du tokenizer...")
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -67,7 +65,6 @@ def restore_module_weights(model, layer_path, original_weights):
 
     module = get_module(model, layer_path)
 
-    # Restaurer les poids
     with torch.no_grad():
         for name, param in module.named_parameters():
             if name in original_weights:
