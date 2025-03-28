@@ -15,7 +15,6 @@ def chat_with_model(model_name):
         conversation_history = []
 
         while True:
-            # Entrée utilisateur
             user_input = input("\nVous : ")
 
             if user_input.lower() in ['exit', 'quitter']:
